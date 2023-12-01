@@ -31,6 +31,7 @@ class YourSpiderName(scrapy.Spider):
             'longitude': '114.1692228242755',
         },
     }
+
     def parse(self, response):
         yield scrapy.Request(
             self.start_urls[0],
@@ -40,6 +41,7 @@ class YourSpiderName(scrapy.Spider):
             callback=self.parse_result,
             meta={'dont_merge_cookies': True},
         )
+
     def parse_result(self, response):
         data = json.loads(response.text)
-        print(data)
+        yield {'data': data}
